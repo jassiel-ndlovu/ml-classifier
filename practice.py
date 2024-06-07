@@ -8,16 +8,6 @@ from torch.utils.data import DataLoader, TensorDataset
 from torchvision import transforms
 from scipy.ndimage import median_filter
 
-# Apply median filter to reduce noise
-def apply_median_filter(data, size=3):
-    filtered_data = []
-    for row in data:
-        image = row[:1024].reshape(32, 32)
-        filtered_image = median_filter(image, size=size)
-        filtered_row = np.concatenate((filtered_image.flatten(), row[1024:]))
-        filtered_data.append(filtered_row)
-    return np.array(filtered_data)
-
 # Correct the orientation
 def correct_orientation(data):
     corrected_data = []

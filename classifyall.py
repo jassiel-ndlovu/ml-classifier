@@ -63,23 +63,15 @@ def correct_orientation(data):
         corrected_data.append(corrected_row)
     return np.array(corrected_data)
 
-# Apply median filter to reduce noise
-def apply_median_filter(data, size=3):
-    filtered_data = []
-    for row in data:
-        image = row[:1024].reshape(32, 32)
-        filtered_image = median_filter(image, size=size)
-        filtered_row = np.concatenate((filtered_image.flatten(), row[1024:]))
-        filtered_data.append(filtered_row)
-    return np.array(filtered_data)
-
 # Standardize the data
 def standardise(data):
     dataset = np.zeros((data.shape[0], 1025))
+
     for index in range(len(data)):
         dataset[index][-1] = data[index][-1]
         row = data[index, :-1]
         row_indices_to_remove = []
+
         for i in range(len(row)):
             if row[i] < 0:
                 row_indices_to_remove.append(i)
@@ -89,8 +81,10 @@ def standardise(data):
                 row[i] = 0
             else:
                 row[i] = 255
+
         row = np.delete(row, row_indices_to_remove)
         dataset[index, :-1] = row
+
     return dataset
 
 def preprocess_data(data):
