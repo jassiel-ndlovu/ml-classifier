@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "glyphcnn"
+version = "1.0.0"
+description = "A compact CNN that classifies noisy 32x32 binary letter glyphs (21 classes)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Jassiel Nkosi" }]
+keywords = ["deep-learning", "pytorch", "cnn", "image-classification", "computer-vision"]
+dependencies = [
+    "torch>=2.0",
+    "numpy>=1.23",
+    "pillow>=9.0",
+    "matplotlib>=3.6",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-cov>=4.0", "ruff>=0.4"]
+
+[project.scripts]
+glyphcnn = "glyphcnn.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/USERNAME/glyphcnn"
+Repository = "https://github.com/USERNAME/glyphcnn"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
